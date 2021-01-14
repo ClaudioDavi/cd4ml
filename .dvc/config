@@ -1,0 +1,4 @@
+[cache]
+    gs = gscache
+['remote "gscache"']
+    url = gs://gofind-dvc/cache
