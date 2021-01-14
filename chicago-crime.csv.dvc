@@ -1,0 +1,4 @@
+outs:
+- md5: 8cd2aff4d3044030c7c60923173e0680
+  size: 6928976
+  path: gs://gofind-datalake/dvc/chicago-crime.csv
