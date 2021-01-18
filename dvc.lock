@@ -1,0 +1,33 @@
+fetch_data:
+  cmd: gsutil cp gs://gofind-datalake/dvc/chicago-crime.csv data/chicago-crime.csv
+  deps:
+  - path: gs://gofind-datalake/dvc/chicago-crime.csv
+    md5: 8cd2aff4d3044030c7c60923173e0680
+    size: 6928976
+  outs:
+  - path: data/chicago-crime.csv
+    md5: 8cd2aff4d3044030c7c60923173e0680
+    size: 6928976
+prepare:
+  cmd: python src/prepare.py data/chicago-crime.csv
+  deps:
+  - path: data/chicago-crime.csv
+    md5: 8cd2aff4d3044030c7c60923173e0680
+    size: 6928976
+  - path: src/prepare.py
+    md5: 0e1a77dea9dacdacbe52aaa808a24ef0
+    size: 1500
+  params:
+    params.yaml:
+      prepare.split: 0.7
+      prepare.validate: true
+  outs:
+  - path: data/chicago-test.csv
+    md5: 02418a3548b5996bf2765fbda541851e
+    size: 1000669
+  - path: data/chicago-train.csv
+    md5: 1e7cc3c2346d7585d53a71e6bded5aac
+    size: 4658098
+  - path: data/chicago-val.csv
+    md5: f31b624e6a927d806651e4198e55e9d0
+    size: 997517

@@ -1,0 +1,19 @@
+stages:
+  fetch_data:
+    cmd: gsutil cp gs://gofind-datalake/dvc/chicago-crime.csv data/chicago-crime.csv
+    deps:
+    - gs://gofind-datalake/dvc/chicago-crime.csv
+    outs:
+    - data/chicago-crime.csv
+  prepare:
+    cmd: python src/prepare.py data/chicago-crime.csv
+    deps:
+    - data/chicago-crime.csv
+    - src/prepare.py
+    params:
+    - prepare.split
+    - prepare.validate
+    outs:
+    - data/chicago-test.csv
+    - data/chicago-train.csv
+    - data/chicago-val.csv

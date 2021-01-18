@@ -1,32 +1,6 @@
-echo setting up environment...
+# This should run on a ECS Instance
+docker build -t Dockerfile_dvc_Agent gocd-dvc-agent
 
-rm -rf env
-rm -rf .dvc
+docker run -d -p8153:8153 gocd/gocd-server:v21.1.0
 
-python3 -m venv env/
-
-ls -lah env/
-
-source env/bin/activate
-
-which python
-
-echo installing dvc...
-
-pip install 'dvc[gs,aws]'
-
-echo initializing dvc...
-
-dvc init
-
-pip install -r requirements.txt
-
-dvc remote add gscache gs://$CACHE_BUCKET/cache
-dvc config cache.gs gscache
-dvc add --external gs://$DATA_BUCKET/dvc/chicago-crime.csv
-
-dvc run -n fetch_data \
-        -d gs://gofind-datalake/dvc/chicago-crime.csv \
-          --external \
-          -o data/chicago.csv \
-          gsutil cp gs://gofind-datalake/dvc/chicago-crime.csv data/chicago-crime.csv 
+docker run -d -e GO_SERVER_URL=http://$(hostname -I):$(docker inspect --format='{{(index (index .NetworkSettings.Ports "8153/tcp") 0).HostPort}}' boring_sanderson)/go  gocd-dvc-agent

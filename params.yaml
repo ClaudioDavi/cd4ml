@@ -1,0 +1,5 @@
+prepare:
+  split: 0.7
+  validate: true
+train:
+  label: "arrest"
