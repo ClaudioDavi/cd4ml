@@ -3,3 +3,6 @@ prepare:
   validate: true
 train:
   label: "arrest"
+  batch_size: 32
+  ds_epoch: 10
+  epoch: 10

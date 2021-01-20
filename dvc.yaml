@@ -17,3 +17,20 @@ stages:
     - data/chicago-test.csv
     - data/chicago-train.csv
     - data/chicago-val.csv
+  train:
+    cmd: python src/train.py data/chicago-train.csv data/chicago-test.csv data/chicago-val.csv
+    deps:
+    - data/chicago-test.csv
+    - data/chicago-train.csv
+    - data/chicago-val.csv
+    - src/train.py
+    params:
+    - train.batch_size
+    - train.ds_epoch
+    - train.epoch
+    - train.label
+    outs:
+    - model/
+    metrics:
+    - metrics.json:
+        cache: false

@@ -114,5 +114,5 @@ ENV/
 .idea/modules.xml
 .idea/workspace.xml
 experiments/
-/model
 .vscode/
+/model

@@ -9,10 +9,15 @@
 import os
 import csv
 import sys
+import yaml
+
+params = yaml.safe_load(open("params.yaml"))["prepare"]
 
 FILE_NAME = sys.argv[1]
-SPLIT_SIZE = 0.7
-VALIDATE = True
+
+
+SPLIT_SIZE = params["split"]
+VALIDATE = params["validate"]
 
 COLUMNS = [
     "primary_type",
@@ -26,10 +31,6 @@ COLUMNS = [
     "community_area",
     "year",
 ]
-
-LABEL = "arrest"
-
-HEADERS = COLUMNS.append(LABEL)
 
 file_size = sum(1 for row in csv.reader(open(FILE_NAME)))
 
@@ -56,6 +57,8 @@ with open(FILE_NAME) as f:
         # skip header
         if i == 0:
             continue
+
+        row["arrest"] = 1 if row["arrest"] == "true" else 0
 
         if i <= train_size:
             train_writer.writerow(row)
