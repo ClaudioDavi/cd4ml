@@ -6,3 +6,6 @@ train:
   batch_size: 32
   ds_epoch: 10
   epoch: 10
+evaluate:
+  label: "arrest"
+  batch_size: 32

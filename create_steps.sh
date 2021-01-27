@@ -15,7 +15,7 @@ dvc run -n prepare \
 
 dvc run -n train \
         -d src/train.py -d data/chicago-train.csv  -d data/chicago-val.csv -d data/chicago-test.csv \
-        -o model/tf/ \
+        -o model/ \                
         -p train.ds_epoch,train.epoch,train.batch_size,train.label \
         -M metrics.json \
         python src/train.py data/chicago-train.csv data/chicago-test.csv data/chicago-val.csv

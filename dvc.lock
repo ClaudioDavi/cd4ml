@@ -15,22 +15,22 @@ prepare:
     md5: 8cd2aff4d3044030c7c60923173e0680
     size: 6928976
   - path: src/prepare.py
-    md5: 0e1a77dea9dacdacbe52aaa808a24ef0
-    size: 1500
+    md5: 44fa8ce0a97cd33007b2a0a4844e5564
+    size: 1607
   params:
     params.yaml:
       prepare.split: 0.7
       prepare.validate: true
   outs:
   - path: data/chicago-test.csv
-    md5: 02418a3548b5996bf2765fbda541851e
-    size: 1000669
+    md5: ef8741eab31bd41bf68ede74f7ea6908
+    size: 1000662
   - path: data/chicago-train.csv
-    md5: 1e7cc3c2346d7585d53a71e6bded5aac
-    size: 4658098
+    md5: 0e5a5d03ee74a4ac98756909257a71bb
+    size: 4658091
   - path: data/chicago-val.csv
-    md5: f31b624e6a927d806651e4198e55e9d0
-    size: 997517
+    md5: 7242c56253df1163303473680030046f
+    size: 997510
 train:
   cmd: python src/train.py data/chicago-train.csv data/chicago-test.csv data/chicago-val.csv
   deps:
@@ -59,4 +59,26 @@ train:
   - path: model/
     md5: 5e58f386da202157b5e370ebef2d5d49.dir
     size: 1765241
+    nfiles: 3
+evaluate:
+  cmd: python src/evaluate.py data/chicago-test.csv model baseline.json
+  deps:
+  - path: data/chicago-test.csv
+    md5: ef8741eab31bd41bf68ede74f7ea6908
+    size: 1000662
+  - path: model/
+    md5: 5e58f386da202157b5e370ebef2d5d49.dir
+    size: 1765241
+    nfiles: 3
+  - path: src/evaluate.py
+    md5: 50bfb8f1d0544efc37a53ef7a51a75f8
+    size: 843
+  params:
+    params.yaml:
+      evaluate.batch_size: 32
+      evaluate.label: arrest
+  outs:
+  - path: serving/
+    md5: af90eb9fd2aaef9cfd24830af1f6d26c.dir
+    size: 1486055
     nfiles: 3

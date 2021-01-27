@@ -7,6 +7,7 @@ import os
 import sys
 import json
 from functools import partial
+import time
 
 import tensorflow as tf
 import yaml
@@ -201,9 +202,9 @@ final_model.fit(train_ds, validation_data=val_ds, epochs=10, callbacks=callback_
 
 loss, accuracy = final_model.evaluate(test_ds)
 
+ts = int(time.time())
 
-tf.saved_model.save(final_model, "model/")
-
+tf.saved_model.save(final_model, "model/{}".format(ts))
 
 with open("metrics.json", "w") as f:
     json.dump({"loss": loss, "accuracy": accuracy}, f)

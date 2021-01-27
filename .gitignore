@@ -116,3 +116,5 @@ ENV/
 experiments/
 .vscode/
 /model
+credentials.json
+/serving

@@ -18,9 +18,8 @@ stages:
     - data/chicago-train.csv
     - data/chicago-val.csv
   train:
-    cmd: python src/train.py data/chicago-train.csv data/chicago-test.csv data/chicago-val.csv
+    cmd: python src/train.py data/chicago-train.csv data/chicago-val.csv
     deps:
-    - data/chicago-test.csv
     - data/chicago-train.csv
     - data/chicago-val.csv
     - src/train.py
@@ -34,3 +33,14 @@ stages:
     metrics:
     - metrics.json:
         cache: false
+  evaluate:
+    cmd: python src/evaluate.py data/chicago-test.csv model baseline.json
+    deps:
+    - data/chicago-test.csv
+    - model/
+    - src/evaluate.py
+    params:
+    - evaluate.batch_size
+    - evaluate.label
+    outs:
+    - serving/
